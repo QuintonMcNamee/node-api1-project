@@ -68,6 +68,21 @@ server.delete('/api/users/:id', (req, res) => {
   });
 });
 
+server.put('/api/users/:id', (req, res) => {
+  const id = req.params.id;
+  const userInfo = req.body;
+
+  db.update(id, userInfo)
+    .then(response => {
+      res.json(response);
+      res.status(200);
+    })
+    .catch(error => {
+      res.json(error);
+      res.status(500);
+    });
+})
+
 server.listen(port, () => {
   console.log(`server listening on port ${port}`);
 });
