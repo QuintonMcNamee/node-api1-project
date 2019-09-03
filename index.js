@@ -38,7 +38,21 @@ server.get('/api/users', (req, res) => {
       res.rend(error);
       res.status(500);
     });
-})
+});
+
+server.get('/api/users/:id', (req, res) => {
+  const id = req.params.id;
+
+  db.findById(id)
+    .then(response => {
+      res.json(response);
+      res.status(201);
+    })
+    .catch(error => {
+      res.json(error);
+      res.status(500);
+    });
+});
 
 server.listen(port, () => {
   console.log(`server listening on port ${port}`);
