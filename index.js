@@ -19,7 +19,7 @@ server.post('/api/users', (req, res) => {
         res.status(201);
       })
       .catch(error => {
-        res.rend(error);
+        res.send(error);
         res.status(500);
       });
   } else {
@@ -35,13 +35,17 @@ server.get('/api/users', (req, res) => {
       res.status(200);
     })
     .then(error => {
-      res.rend(error);
+      res.send(error);
       res.status(500);
     });
 });
 
 server.get('/api/users/:id', (req, res) => {
   const id = req.params.id;
+
+  if(id <= 0){
+    res.json({ message: 'Please enter a valid id.' });
+  };
 
   db.findById(id)
     .then(response => {
